@@ -1,15 +1,22 @@
 import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";   
 import Header from "../components/header";
 import Layout from "../components/layout";
-import Top from "../components/top";
+import NotFound from "./pages/404";
+import Home from "./pages/home";
 
 export function App() {
  return (
     <React.StrictMode>
-        <Layout>
-            <Header />
-            <Top />
-        </Layout>
+        <BrowserRouter>
+            <Layout>
+                <Header />
+                <Routes>
+                    <Route path="/" element={<Home/>} />
+                    <Route path="*" element={<NotFound/>} />
+                </Routes>
+            </Layout>
+        </BrowserRouter>
     </React.StrictMode>
  );
 }

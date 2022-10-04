@@ -1,4 +1,4 @@
-export default function Top() {
+export default function Home() {
     const first_button: string = "はじめる";
     const second_button: string = "トリセツ";
     return (
