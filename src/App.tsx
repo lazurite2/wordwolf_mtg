@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "../components/header";
 import Layout from "../components/layout";
 import NotFound from "./pages/404";
+import GameSetting from "./pages/gamesetting";
 import Home from "./pages/home";
 
 export function App() {
@@ -10,9 +11,9 @@ export function App() {
     <React.StrictMode>
         <BrowserRouter>
             <Layout>
-                <Header />
                 <Routes>
                     <Route path="/" element={<Home/>} />
+                    <Route path="/gamesetting" element={<GameSetting/>} />
                     <Route path="*" element={<NotFound/>} />
                 </Routes>
             </Layout>
