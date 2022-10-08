@@ -10,10 +10,10 @@ export default function Home() {
                 <h1 className="font-mplus font-bold">{gametitle}</h1>
             </header>
             <div className="flex flex-col justify-center items-center gap-10">
-                <Link to="/gamesetting" className="border-2 p-2 w-2/3 lg:w-1/3 border-blue-700 rounded-md text-center">
+                <Link to="/gamesetting" className="border-2 p-2 w-2/3 lg:w-1/3 border-blue-300 rounded-md text-center">
                     {start_button}
                 </Link>
-                <Link to="/gamesetting" className="border-2 p-2 w-2/3 lg:w-1/3 border-blue-700 rounded-md text-center">
+                <Link to="/gamesetting" className="border-2 p-2 w-2/3 lg:w-1/3 border-blue-300 rounded-md text-center">
                     {desc_button}
                 </Link>
             </div>
