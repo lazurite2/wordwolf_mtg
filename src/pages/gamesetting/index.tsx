@@ -27,6 +27,7 @@ export default function GameSetting() {
     }
     const gamesettingtitle: string = "ゲーム設定";
     const [property, setProperty] = useState<inputSetting>(initialSetting);
+
     const decrementPlayer = () => {
         if (property.playerNum !== MINPLAYER) {
             setProperty({ ...property, playerNum: property.playerNum - 1 });
@@ -58,13 +59,21 @@ export default function GameSetting() {
         }
     }
 
+    // 人狼 or プレイヤー数変動で発火する市民計算機
     useEffect(() => {
+        setProperty((prev)=> ({...prev, civilNum: prev.playerNum - prev.wolvesNum}));
+    },[property.wolvesNum,property.playerNum]);
 
-    },[])
+    useEffect(() => {
+        console.log("プレイヤー:", property.playerNum);
+        console.log("市民:", property.civilNum);
+        console.log("人狼:", property.wolvesNum);
+    },[property.civilNum]);
+
     return (
         <>
             <header className="text-center pt-10 pb-10">
-                <h1 className="font-mplus font-bold">{gamesettingtitle}</h1>
+                <h1 className="font-bold">{gamesettingtitle}</h1>
             </header>        
             <div className="">
                 <form aria-label="game_setting_form">
@@ -85,7 +94,7 @@ export default function GameSetting() {
                         </div>
                     </div>
                     <div className="flex flex-col justify-center items-center pb-8"> 
-                        <span className="text-xl py-3 ">タイマー (分)</span>
+                        <span className="text-xl py-3">タイマー (分)</span>
                         <div className="flex">
                             <MinusIcon className="h-10 w-10 text-blue-500 border-2 border-blue-300 rounded-md" onClick={() => decrementTimer() } />
                             <span className="text-2xl px-5">{property.timerNum}</span>
