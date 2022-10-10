@@ -3,12 +3,13 @@ import {
     MinusIcon
 } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
+import * as localforage from "localforage";
 
 type inputSetting = {
-    playerNum : number;
-    wolvesNum : number;
-    civilNum : number;
-    timerNum : number;
+    player : number;
+    wolves : number;
+    civil : number;
+    timer : number;
 }
 
 export default function GameSetting() {
@@ -18,91 +19,124 @@ export default function GameSetting() {
     const MAXWOLF: number = 2;
     const MINTIMER: number = 2;
     const MAXTIMER: number = 4;
+    const INSERTKEY: string = "gameSettingValue";
+    const INC: string = "inc";
+    const DEC: string = "dec";
+    const TITLE: string = "ゲーム設定";
 
     const initialSetting = {
-        playerNum: 3,
-        wolvesNum: 1,
-        civilNum: 2,
-        timerNum: 2
+        player: 3,
+        wolves: 1,
+        civil: 2,
+        timer: 2
     }
-    const gamesettingtitle: string = "ゲーム設定";
+
     const [property, setProperty] = useState<inputSetting>(initialSetting);
-
-    const decrementPlayer = () => {
-        if (property.playerNum !== MINPLAYER) {
-            setProperty({ ...property, playerNum: property.playerNum - 1 });
-        }
-    }
-    const incrementPlayer = () => {
-        if (property.playerNum !== MAXPLAYER) {
-            setProperty({ ...property, playerNum: property.playerNum + 1 });
-        }
-    }
-    const decrementWolf = () => {
-        if (property.wolvesNum !== MINWOLF) {
-            setProperty({ ...property, wolvesNum: property.wolvesNum - 1 });
-        }
-    }
-    const incrementWolf = () => {
-        if (property.wolvesNum !== MAXWOLF) {
-            setProperty({ ...property, wolvesNum: property.wolvesNum + 1 });
-        }
-    }
-    const decrementTimer = () => {
-        if (property.timerNum !== MINTIMER) {
-            setProperty({ ...property, timerNum: property.timerNum - 1 });
-        }
-    }
-    const incrementTimer = () => {
-        if (property.timerNum !== MAXTIMER) {
-            setProperty({ ...property, timerNum: property.timerNum + 1 });
+    
+    const flucPlayer = (value: string) => {
+        if (value === INC) {
+            if (property.player !== MAXPLAYER) {
+                setProperty(prev => ({ ...prev, player: prev.player + 1 }));
+            }
+        } else if (value === DEC) {
+            if (property.player !== MINPLAYER) {
+                setProperty(prev => ({ ...prev, player: prev.player - 1 }));
+            }
         }
     }
 
-    // 人狼 or プレイヤー数変動で発火する市民計算機
+    const flucWolf = (value: string) => {
+        if (value === INC) {
+            if (property.wolves !== MAXWOLF) {
+                setProperty(prev => ({ ...prev, wolves: prev.wolves + 1 }));
+            }
+        } else if (value === DEC) {
+            if (property.wolves !== MINWOLF) {
+                setProperty(prev => ({ ...prev, wolves: prev.wolves - 1 }));
+            }
+        }
+    }
+    
+    const flucTimer = (value: string) => {
+        if (value === INC) {
+            if (property.timer !== MAXTIMER) {
+                setProperty(prev => ({ ...prev, timer: prev.timer + 1 }));
+            }
+        } else if (value === DEC) {
+            if (property.timer !== MINTIMER) {
+                setProperty(prev => ({ ...property, timer: prev.timer - 1 }));
+            }
+        }
+    }
+
+    // 人狼 or プレイヤー数変動で発火する市民数計算機
     useEffect(() => {
-        setProperty((prev)=> ({...prev, civilNum: prev.playerNum - prev.wolvesNum}));
-    },[property.wolvesNum,property.playerNum]);
+        const civilcalc: number = property.player - property.wolves;
+        setProperty({...property, civil: civilcalc});
+    },[property.wolves,property.player]);
 
     useEffect(() => {
-        console.log("プレイヤー:", property.playerNum);
-        console.log("市民:", property.civilNum);
-        console.log("人狼:", property.wolvesNum);
-    },[property.civilNum]);
+        console.log("プレイヤー:", property.player);
+        console.log("市民:", property.civil);
+        console.log("人狼:", property.wolves);
+    },[property.civil]);
+
+    useEffect(() => {
+        console.log("timer:",property.timer);
+    },[property.timer])
+    
+    const watchDB = async () => {
+        const pValue = await localforage.getItem(INSERTKEY);
+        if (pValue) {
+            console.log(pValue);
+        }
+    }
+
+    useEffect(() => {
+        watchDB();
+    },[]);
+
+    const handleSubmit = async () => {
+        try {
+            await localforage.setItem('gameSettingValue', property);
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     return (
         <>
             <header className="text-center pt-10 pb-10">
-                <h1 className="font-bold">{gamesettingtitle}</h1>
+                <h1 className="font-bold">{TITLE}</h1>
             </header>        
             <div className="">
-                <form aria-label="game_setting_form">
+                <form aria-label="game_setting_form" onSubmit={() => handleSubmit() }>
                     <div className="flex flex-col justify-center items-center pb-8">
                         <span className="text-xl py-3 ">プレイヤー数</span>
                         <div className="flex items-center">
-                            <MinusIcon className="h-10 w-10 text-blue-500 border-2 border-blue-300 rounded-md " onClick={() => decrementPlayer() } />
-                            <span className="text-2xl px-5">{property.playerNum}</span>
-                            <PlusIcon className="h-10 w-10 text-red-500 border-2 rounded-md border-red-300" onClick={() => incrementPlayer() } />
+                            <MinusIcon className="h-10 w-10 text-blue-500 border-2 border-blue-300 rounded-md " onClick={() => flucPlayer(DEC) } />
+                            <span className="text-2xl px-5">{property.player}</span>
+                            <PlusIcon className="h-10 w-10 text-red-500 border-2 rounded-md border-red-300" onClick={() => flucPlayer(INC) } />
                         </div>
                     </div>
                     <div className="flex flex-col justify-center items-center pb-8">
                         <span className="text-xl py-3 ">人狼の数</span>
                         <div className="flex">
-                            <MinusIcon className="h-10 w-10 text-blue-500 border-2 border-blue-300 rounded-md" onClick={() => decrementWolf() } />
-                            <span className="text-2xl px-5">{property.wolvesNum}</span>
-                            <PlusIcon className="h-10 w-10 text-red-500 border-2 rounded-md border-red-300" onClick={() => incrementWolf() } />
+                            <MinusIcon className="h-10 w-10 text-blue-500 border-2 border-blue-300 rounded-md" onClick={() => flucWolf(DEC) } />
+                            <span className="text-2xl px-5">{property.wolves}</span>
+                            <PlusIcon className="h-10 w-10 text-red-500 border-2 rounded-md border-red-300" onClick={() => flucWolf(INC) } />
                         </div>
                     </div>
                     <div className="flex flex-col justify-center items-center pb-8"> 
                         <span className="text-xl py-3">タイマー (分)</span>
                         <div className="flex">
-                            <MinusIcon className="h-10 w-10 text-blue-500 border-2 border-blue-300 rounded-md" onClick={() => decrementTimer() } />
-                            <span className="text-2xl px-5">{property.timerNum}</span>
-                            <PlusIcon className="h-10 w-10 text-red-500 border-2 border-red-300 rounded-md" onClick={() => incrementTimer() } />
+                            <MinusIcon className="h-10 w-10 text-blue-500 border-2 border-blue-300 rounded-md" onClick={() => flucTimer(DEC) } />
+                            <span className="text-2xl px-5">{property.timer}</span>
+                            <PlusIcon className="h-10 w-10 text-red-500 border-2 border-red-300 rounded-md" onClick={() => flucTimer(INC) } />
                         </div>
                     </div>
                     <div className="flex flex-col justify-center items-center pt-7">
-                        <button className="border-2 p-2 rounded-md  border-blue-300">プレイヤー名設定へ</button>
+                        <button type="submit" className="border-2 p-2 rounded-md  border-blue-300">プレイヤー名設定へ</button>
                     </div>
                 </form>
             </div>
