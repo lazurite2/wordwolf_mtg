@@ -4,8 +4,9 @@ import {
 } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import * as localforage from "localforage";
+import { Link } from "react-router-dom";
 
-type inputSetting = {
+type InputSetting = {
     player : number;
     wolves : number;
     civil : number;
@@ -13,25 +14,24 @@ type inputSetting = {
 }
 
 export default function GameSetting() {
-    const MINPLAYER: number = 3;
-    const MAXPLAYER: number = 6;
-    const MINWOLF: number = 1;
-    const MAXWOLF: number = 2;
-    const MINTIMER: number = 2;
-    const MAXTIMER: number = 4;
-    const INSERTKEY: string = "gameSettingValue";
-    const INC: string = "inc";
-    const DEC: string = "dec";
-    const TITLE: string = "ゲーム設定";
-
     const initialSetting = {
         player: 3,
         wolves: 1,
         civil: 2,
         timer: 2
     }
+    const MINPLAYER: number = 3;
+    const MAXPLAYER: number = 6;
+    const MINWOLF: number = 1;
+    const MAXWOLF: number = 2;
+    const MINTIMER: number = 2;
+    const MAXTIMER: number = 4;
+    const DBKEY: string = "gameSettingValue";
+    const INC: string = "inc";
+    const DEC: string = "dec";
+    const TITLE: string = "ゲーム設定";
 
-    const [property, setProperty] = useState<inputSetting>(initialSetting);
+    const [property, setProperty] = useState<InputSetting>(initialSetting);
     
     const flucPlayer = (value: string) => {
         if (value === INC) {
@@ -86,7 +86,7 @@ export default function GameSetting() {
     },[property.timer])
     
     const watchDB = async () => {
-        const pValue = await localforage.getItem(INSERTKEY);
+        const pValue = await localforage.getItem(DBKEY);
         if (pValue) {
             console.log(pValue);
         }
@@ -98,7 +98,8 @@ export default function GameSetting() {
 
     const handleSubmit = async () => {
         try {
-            await localforage.setItem('gameSettingValue', property);
+            await localforage.setItem("gameSetting", property);
+            //localforage.clear()
         } catch (err) {
             console.log(err);
         }
@@ -110,7 +111,6 @@ export default function GameSetting() {
                 <h1 className="font-bold">{TITLE}</h1>
             </header>        
             <div className="">
-                <form aria-label="game_setting_form" onSubmit={() => handleSubmit() }>
                     <div className="flex flex-col justify-center items-center pb-8">
                         <span className="text-xl py-3 ">プレイヤー数</span>
                         <div className="flex items-center">
@@ -136,9 +136,10 @@ export default function GameSetting() {
                         </div>
                     </div>
                     <div className="flex flex-col justify-center items-center pt-7">
-                        <button type="submit" className="border-2 p-2 rounded-md  border-blue-300">プレイヤー名設定へ</button>
+                        <Link to={"/playernamesetting"}>
+                            <button onClick={() => handleSubmit()} className="border-2 p-2 rounded-md  border-blue-300">プレイヤー名設定へ</button>
+                        </Link>
                     </div>
-                </form>
             </div>
         </>
     );
