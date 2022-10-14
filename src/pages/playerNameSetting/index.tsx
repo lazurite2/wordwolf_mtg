@@ -15,9 +15,10 @@ type InputPlayerName = {
 export default function PlayerNameSetting() {
   const initialInput = {}
   const TITLE: string = "プレイヤー名設定";
+  const DB_PLAYER: string = "playerNameList";
   const [gameSetting, setGameSetting] = useState<GameSetting>();
   const [playerNumber, setPlayerNumber] = useState(0);
-  const [inputValue, setInputValue] = useState<InputPlayerName>(initialInput);
+  const [inputValue, setInputValue] = useState<InputPlayerName>({});
 
   const getGameSettingDB = async () => {
     const data: GameSetting | null = await localforage.getItem("gameSetting");
@@ -29,16 +30,26 @@ export default function PlayerNameSetting() {
       console.log(`プレイヤー数は${data.player}人なり`)
     }
   }
+  const watchDB = async () => {
+    const pValue = await localforage.getItem(DB_PLAYER);
+    if (pValue) {
+        console.log("プレイヤー名：",pValue);
+    }
+　}
 
   useEffect(() => {
+      watchDB();
+  },[]);
+  useEffect(() => {
     getGameSettingDB();
-  }, []);
+   }, []);
 
   const createNameInputBox = () => {
     let box = [];
-    
+    let Nplayer: string = "";
     for (let i = 0; i < playerNumber; i++) {
-      box.push(<input type="text" key={i} name={`player${i + 1}`} value={inputValue.name} className="border-2 rounded-md my-3 p-2" placeholder={`プレイヤー${i + 1}`} onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange(e)} />);
+      Nplayer = "player" + (i + 1);
+      box.push(<input type="text" key={i} name={`player${i + 1}`} value={inputValue[Nplayer] === undefined ? '' : inputValue[Nplayer]} className="border-2 rounded-md my-3 p-2" placeholder={`プレイヤー${i + 1}`} onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange(e)} />);
     }
     return box;
   }
@@ -50,7 +61,15 @@ export default function PlayerNameSetting() {
       setInputValue({...inputValue, [name]: value });
 
   }
-  
+  const checkInputValue = () => console.log(inputValue);
+  const handleSubmit = async () => {
+    try {
+        await localforage.setItem("playerNameList", inputValue);
+        //localforage.clear()
+    } catch (err) {
+        console.log(err);
+    }
+}
   return (
     <>
       <header className="text-center pt-10 pb-10">
@@ -59,7 +78,10 @@ export default function PlayerNameSetting() {
 
       <div className="flex flex-col justify-center items-center pb-8">
         {createNameInputBox()}
-      </div>
+       </div>
+       <div className="flex flex-col justify-center items-center pt-7">
+            <button onClick={() => handleSubmit()} className="border-2 p-2 rounded-md  border-blue-300">ゲーム開始</button>
+        </div>
     </>
   );
 }
