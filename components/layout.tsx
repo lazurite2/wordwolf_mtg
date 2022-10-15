@@ -5,7 +5,7 @@ type Props = {
 }
 export default function Layout({children}: Props): React.ReactElement {
     return (
-        <div className="mx-auto w-screen h-screen">
+        <div className="mx-auto w-screen h-screen bg-orange-50">
             <main>{children}</main>
         </div>
     );
