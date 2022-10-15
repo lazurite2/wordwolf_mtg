@@ -12,5 +12,3 @@ yarn add
 ```
 npx parcel src/index.html
 ```
-
-:turtle:
