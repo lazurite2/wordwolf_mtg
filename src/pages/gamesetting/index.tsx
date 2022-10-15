@@ -26,7 +26,7 @@ export default function GameSetting() {
     const MAXWOLF: number = 2;
     const MINTIMER: number = 2;
     const MAXTIMER: number = 4;
-    const DB_GAMESETTING: string = "gameSettingValue";
+    const DB_GAMESETTING: string = "gameSetting";
     const INC: string = "inc";
     const DEC: string = "dec";
     const TITLE: string = "ゲーム設定";
@@ -98,7 +98,7 @@ export default function GameSetting() {
 
     const handleSubmit = async () => {
         try {
-            localforage.removeItem(DB_GAMESETTING);
+            localforage.clear();
             await localforage.setItem(DB_GAMESETTING, property);
             //localforage.clear()
         } catch (err) {
