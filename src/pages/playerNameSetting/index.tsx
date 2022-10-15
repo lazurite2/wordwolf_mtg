@@ -35,7 +35,7 @@ export default function PlayerNameSetting() {
     if (pValue) {
         console.log("プレイヤー名：",pValue);
     }
-　}
+  }
 
   useEffect(() => {
       watchDB();
@@ -64,7 +64,8 @@ export default function PlayerNameSetting() {
   const checkInputValue = () => console.log(inputValue);
   const handleSubmit = async () => {
     try {
-        await localforage.setItem("playerNameList", inputValue);
+        localforage.removeItem(DB_PLAYER);
+        await localforage.setItem(DB_PLAYER, inputValue);
         //localforage.clear()
     } catch (err) {
         console.log(err);
