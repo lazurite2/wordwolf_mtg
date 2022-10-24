@@ -74,7 +74,7 @@ export default function PlayerNameSetting() {
   return (
     <>
       <header className="text-center pt-10 pb-10">
-        <h1 className="font-bold">{TITLE}</h1>
+        <h1 className="font-bold font-mplus">{TITLE}</h1>
       </header>
 
       <div className="flex flex-col justify-center items-center pb-8">
