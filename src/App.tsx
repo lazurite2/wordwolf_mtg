@@ -3,7 +3,7 @@ import Layout from "../components/layout";
 import NotFound from "./pages/404";
 import GameSetting from "./pages/gamesetting";
 import Home from "./pages/home";
-import PlayerNameSetting from "./pages/playernamesetting";
+import PlayerNameSetting from "./pages/PlayerNameSetting";
 import ThemeCheck from "./pages/themecheck";
 
 export function App() {
