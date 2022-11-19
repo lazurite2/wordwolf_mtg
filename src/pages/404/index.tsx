@@ -5,12 +5,12 @@ export default function NotFound() {
     return (
         <>
             <header className="text-center pt-32 pb-32">
-                <h1 className="font-mplus font-bold">{notfoundtitle}</h1>
+                <h1 className="font-bold">{notfoundtitle}</h1>
             </header>
             <div className="flex justify-center items-center gap-2">
-                <h2 className="font-semibold font-mplus">Not Found!</h2>
-                <Link to="/" className="text-indigo-500">
-                    <h2 className="font-semibold font-mplus">Back!</h2>
+                <h2 className="font-semibold">Not Found!</h2>
+                <Link to="/" className="text-red-500">
+                    <h2 className="font-semibold">Back!</h2>
                 </Link>
             </div>
         </>
