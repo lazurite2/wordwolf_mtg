@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { GameSettingHundler } from "../../../utils/main";
 
 type playerObj = {
   id: number;
@@ -13,6 +14,9 @@ type testObject = {
 };
 
 export default function ThemeCheck() {
+  useEffect(() => { 
+    GameSettingHundler()
+  },[]);
   const test: testObject = {
     player: [
       { id: 1, name: "A", theme: "稲妻", role: "wolf" },
