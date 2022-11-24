@@ -1,39 +1,37 @@
+import localforage from "localforage";
 import { useState, useEffect } from "react";
-import { GameSettingHundler } from "../../../utils/main";
 
-type playerObj = {
-  id: number;
+
+type PlayerDetails = {
   name: string;
   theme: string;
   role: string;
 };
 
-type testObject = {
-  player: playerObj[];
+type GameInfo = {
+  player: PlayerDetails[];
   timer: number;
 };
 
 export default function ThemeCheck() {
-  useEffect(() => { 
-    GameSettingHundler()
-  },[]);
-  const test: testObject = {
-    player: [
-      { id: 1, name: "A", theme: "稲妻", role: "wolf" },
-      { id: 2, name: "B", theme: "ショック", role: "civil" },
-      { id: 3, name: "C", theme: "ショック", role: "civil" },
-      { id: 4, name: "D", theme: "ショック", role: "civil" },
-      { id: 5, name: "E", theme: "ショック", role: "civil" },
-      { id: 6, name: "F", theme: "稲妻", role: "wolf" },
-    ],
-    timer: 3,
-  };
 
+  const [gameInfo, setGameInfo] = useState<GameInfo>();
   const [readyFlag, setReadyFlag] = useState(false);
   const [playerIndex, setPlayerIndex] = useState(0);
 
-  const addIndexNumber = (i: number) => {
-    if (playerIndex < test.player.length) {
+  const getDetails = async () => {
+    const r: GameInfo | null = await localforage.getItem("playerDetails"); 
+    if (r == null) return undefined;
+    setGameInfo(r); 
+  }
+
+  useEffect(() => {
+   getDetails();
+   console.log(gameInfo);
+  },[]);
+
+  const addIndexNumber = (i: number, playerLength: number): void => {
+    if (playerIndex < playerLength) {
       i = i + 1;
       setPlayerIndex(i);
     }
@@ -53,12 +51,13 @@ export default function ThemeCheck() {
         <h1 className="font-bold">お題</h1>
       </header>
       {(() => {
-        if (readyFlag === false && playerIndex < test.player.length) {
+        if (gameInfo == undefined) return undefined;
+        if (readyFlag === false && playerIndex < gameInfo.player.length) {
           return (
             <div className="flex flex-col items-center">
               <div className="flex gap-2 items-center">
                 <span className="text-2xl font-bold pb-10">
-                  {test.player[playerIndex].name}
+                  {gameInfo.player[playerIndex].name}
                 </span>
                 <span className="text-2xl pb-10">さんが</span>
               </div>
@@ -74,21 +73,21 @@ export default function ThemeCheck() {
               </div>
             </div>
           );
-        } else if (readyFlag === true && playerIndex < test.player.length) {
+        } else if (readyFlag === true && playerIndex < gameInfo.player.length) {
           return (
             <div className="flex flex-col items-center">
               <span className="text-2xl pb-5">あなたのお題は</span>
               <div className="flex pb-10">
                 <span className="text-2xl">「</span>
                 <span className="text-2xl font-bold">
-                  {test.player[playerIndex].theme}
+                  {gameInfo.player[playerIndex].theme}
                 </span>
                 <span className="text-2xl">」です</span>
               </div>
               <button
                 onClick={() => {
                   flagHundler();
-                  addIndexNumber(playerIndex);
+                  addIndexNumber(playerIndex, gameInfo.player.length);
                 }}
                 className="p-2 bg-teal-500/60 rounded-md"
               >
@@ -96,7 +95,7 @@ export default function ThemeCheck() {
               </button>
             </div>
           );
-        } else if (playerIndex === test.player.length) {
+        } else if (playerIndex === gameInfo.player.length) {
          return (
           <div className="pt-10 flex justify-center">
             <button className="p-4 bg-teal-500/60 rounded-md">トーク開始！</button>

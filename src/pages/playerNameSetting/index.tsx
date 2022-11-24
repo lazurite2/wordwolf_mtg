@@ -1,5 +1,6 @@
 import localforage from "localforage";
 import React, { useState, useEffect } from "react";
+import { GameSettingHundler } from "../../../utils/main";
 
 type GameSetting = {
   player: number;
@@ -24,13 +25,12 @@ export default function PlayerNameSetting() {
 
   const getGameSettingDB = async () => {
     const data: GameSetting | null = await localforage.getItem(DB_GAMESETTING);
-    if (data !== null && typeof data === "object") {
-      setGameSetting(data);
-      setPlayerNumber(data.player);
-      console.log("データをゲットしたなり");
-      console.log("オブジェクトなり:", data);
-      console.log(`プレイヤー数は${data.player}人なり`);
-    }
+    if (data == null) return;
+    setGameSetting(data);
+    setPlayerNumber(data.player);
+    console.log("データをゲットしたなり");
+    console.log("オブジェクトなり:", data);
+    console.log(`プレイヤー数は${data.player}人なり`);
   };
   const watchDB = async () => {
     const pValue = await localforage.getItem(DB_PLAYERLIST);
@@ -82,6 +82,7 @@ export default function PlayerNameSetting() {
       checkInputValue();
       localforage.removeItem(DB_PLAYERLIST);
       await localforage.setItem(DB_PLAYERLIST, inputValue);
+      await GameSettingHundler();
       //localforage.clear()
     } catch (err) {
       console.log(err);

@@ -2,13 +2,14 @@ import localforage from "localforage";
 import React, { useState, useEffect } from "react";
 import { themeMaster } from "./themeMaster";
 
+
 type PlayerList = {
   name: string;
   theme: string;
   role: string;
 };
 
-type GameSetting = {
+type GameSettings = {
   player: PlayerList[];
   timer: number;
 };
@@ -25,8 +26,7 @@ type InputPlayerName = {
 };
 
 export async function GameSettingHundler() {
-  // DB名
-  const DB_WORDS: string = "PlayerWordList";
+  const DB_WORDS: string = "playerDetails";
 
   // ゲーム設定取得
   const preSettingList: PreGameSetting | null = await localforage.getItem(
@@ -38,7 +38,7 @@ export async function GameSettingHundler() {
     "playerNameList"
   );
 
-  if (preSettingList === null || playersNameList === null) return;
+  if (preSettingList == null || playersNameList == null) return;
   const timerNum: number = preSettingList.timer;
   const playersNum: number = Object.values(playersNameList).length;
   const playersName: string[] = Object.values(playersNameList);
@@ -48,10 +48,12 @@ export async function GameSettingHundler() {
     preSettingList.player
   );
 
+  /*
   console.log("人狼の要素番号: ", wolvesIndex);
   console.log("お題: ", themeWords);
   console.log(`プレイヤーは ${playersNum}名`);
-  console.log(`制限時間はは ${timerNum}分`);
+  console.log(`制限時間は ${timerNum}分`);
+  */
 
   const playerList: PlayerList[] = setPlayer(
     playersNum,
@@ -60,13 +62,13 @@ export async function GameSettingHundler() {
     wolvesIndex
   );
 
-  const gameSetting: GameSetting = { player: playerList, timer: timerNum };
+  const gameSetting: GameSettings = { player: playerList, timer: timerNum };
 
-  console.log(gameSetting);
-  /*localforage.setItem(DB_WORDS, box.filter(Boolean));
-  const pValue = localforage.getItem(DB_WORDS); */
+  localforage.removeItem(DB_WORDS);
+  await localforage.setItem(DB_WORDS, gameSetting);
 }
 
+// プレイヤーの詳細をセット
 export function setPlayer(
   player: number,
   names: string[],
@@ -81,7 +83,6 @@ export function setPlayer(
       playerArray[i] = { name: names[i], theme: themes[1], role: "civil" };
     }
   }
-  console.log(playerArray);
   return playerArray;
 }
 
@@ -110,9 +111,9 @@ export function selectWolves(wolves: number, player: number): number[] {
     do {
       wolvesArray[i] = Math.floor(Math.random() * player);
     } while (i !== 0 && wolvesArray[i - 1] === wolvesArray[i]);
-    console.log(
+    /* console.log(
       "狼" + (i + 1) + "人目は" + wolvesArray[i] + "番のプレイヤーなり"
-    );
+    );*/
   }
   // プレイヤーの何番目が人狼かを返却
   return wolvesArray;
