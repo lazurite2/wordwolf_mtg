@@ -1,6 +1,6 @@
 import localforage from "localforage";
 import { useState, useEffect } from "react";
-
+import { useNavigate } from "react-router-dom";
 
 type PlayerDetails = {
   name: string;
@@ -14,21 +14,30 @@ type GameInfo = {
 };
 
 export default function ThemeCheck() {
-
+  const navigate = useNavigate();
+  const initialGameInfo: GameInfo = {
+    player: [],
+    timer: 0,
+  };
   const [gameInfo, setGameInfo] = useState<GameInfo>();
   const [readyFlag, setReadyFlag] = useState(false);
   const [playerIndex, setPlayerIndex] = useState(0);
 
-  const getDetails = async () => {
-    const r: GameInfo | null = await localforage.getItem("playerDetails"); 
+  /*const getDetails = async () => {
+    const r: GameInfo | null = await localforage.getItem("playerDetails");
     if (r == null) return undefined;
     setGameInfo(r); 
-  }
+  }*/
 
   useEffect(() => {
-   getDetails();
-   console.log(gameInfo);
-  },[]);
+    (async () => {
+      const r: GameInfo | null = await localforage.getItem("playerDetails");
+      if (r !== null) {
+        setGameInfo(r);
+      }
+    })();
+    // console.log(gameInfo);
+  }, []);
 
   const addIndexNumber = (i: number, playerLength: number): void => {
     if (playerIndex < playerLength) {
@@ -51,7 +60,7 @@ export default function ThemeCheck() {
         <h1 className="font-bold">お題</h1>
       </header>
       {(() => {
-        if (gameInfo == undefined) return undefined;
+        if (gameInfo == null) return;
         if (readyFlag === false && playerIndex < gameInfo.player.length) {
           return (
             <div className="flex flex-col items-center">
@@ -96,11 +105,16 @@ export default function ThemeCheck() {
             </div>
           );
         } else if (playerIndex === gameInfo.player.length) {
-         return (
-          <div className="pt-10 flex justify-center">
-            <button className="p-4 bg-teal-500/60 rounded-md">トーク開始！</button>
-          </div>
-         );
+          return (
+            <div className="pt-10 flex justify-center">
+              <button
+                className="p-4 bg-teal-500/60 rounded-md"
+                onClick={() => navigate("/talktimer", { state: gameInfo })}
+              >
+                トーク開始！
+              </button>
+            </div>
+          );
         }
       })()}
     </>

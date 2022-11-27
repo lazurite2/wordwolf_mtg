@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export default function Home() {
     const start_button: string = "はじめる";
     const tutorial_button: string = "遊び方";
-    const gametitle: string = "ワードウルフ × MTG（仮）";
+    const gametitle: string = "ワードウルフ × MTG";
 
     return (
         <>
