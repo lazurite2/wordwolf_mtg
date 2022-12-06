@@ -17,6 +17,7 @@ type InputPlayerName = {
 type ValidateStatus = {
   duplicate: boolean;
   countover: boolean;
+  valueexist: boolean;
 };
 
 export default function PlayerNameSetting() {
@@ -31,6 +32,7 @@ export default function PlayerNameSetting() {
   const [inputStatus, setInputStatus] = useState<ValidateStatus>({
     duplicate: true,
     countover: true,
+    valueexist: true,
   });
 
   const getGameSettingDB = async () => {
@@ -59,7 +61,7 @@ export default function PlayerNameSetting() {
           key={i}
           name={`player${i + 1}`}
           value={inputValue[Nplayer] === undefined ? "" : inputValue[Nplayer]}
-          className="border-2 rounded-md my-3 p-2"
+          className="border-solid border-2 border-gray-600 rounded-md my-3 p-2"
           placeholder={`プレイヤー${i + 1}`}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             handleInputChange(e)
@@ -99,12 +101,28 @@ export default function PlayerNameSetting() {
     }
   };
 
+  const checkValueExist = (inputValue: InputPlayerName): boolean => {
+    const values = Object.values(inputValue);
+    if (values.length < playerNumber) {
+      return false;
+  } else if (values.includes("")) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   const handleSubmit = async () => {
     try {
       const dupStatus: boolean = checkDuplicate(inputValue);
       const overStatus: boolean = checkCountOver(inputValue);
-      if (dupStatus === false || overStatus === false) {
-        setInputStatus({ duplicate: dupStatus, countover: overStatus });
+      const existStatus: boolean = checkValueExist(inputValue);
+      if (dupStatus === false || overStatus === false || existStatus == false) {
+        setInputStatus({
+          duplicate: dupStatus,
+          countover: overStatus,
+          valueexist: existStatus,
+        });
         return undefined;
       }
       localforage.removeItem(DB_PLAYERLIST);
@@ -139,9 +157,16 @@ export default function PlayerNameSetting() {
         ) : (
           <span></span>
         )}
+        {inputStatus.valueexist === false ? (
+          <span className="border-2 rounded-md p-2 bg-red-500 mt-3 mb-3">
+            プレイヤー名は必須！
+          </span>
+        ) : (
+          <span></span>
+        )}
         <button
           onClick={() => handleSubmit()}
-          className="p-2 rounded-md bg-teal-500/60"
+          className="mt-5 p-2 rounded-md bg-green-500"
         >
           ゲーム開始！
         </button>

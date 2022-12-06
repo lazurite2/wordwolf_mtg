@@ -49,73 +49,56 @@ export default function TalkTimer() {
       }, 1000);
       return () => clearInterval(intervalId);
     } else if (time <= 0) {
-      navigate("/gameresult", { state: gameInfo });
+      navigate("/votewolf", { state: gameInfo });
     }
   }, [time, timerStop]);
 
   return (
-    <>
-      <header className="text-center pt-32 pb-10">
+    <div className="flex flex-col justify-center items-center">
+      <header className="pt-32 pb-10">
         <h1 className="font-bold">トーク</h1>
       </header>
-      <div className="">
-        <ul className="text-center">
-          <li>
-            <span className="text-6xl font-thin">{`${
-              createTimer(time).minStr
-            } : ${createTimer(time).secStr}`}</span>
-          </li>
-          <div className="flex justify-center pt-5 pb-5 gap-2">
-            <li>
-              <button
-                className="p-2 bg-teal-500/60 rounded-md"
-                onClick={() => time > 60 && setTime(time - 60)}
-              >
-                - 1:00
-              </button>
-            </li>
-            <li>
-              <button
-                className="p-2 bg-teal-500/60 rounded-md"
-                onClick={() => setTime(time + 60)}
-              >
-                + 1:00
-              </button>
-            </li>
-          </div>
-          <div className="flex justify-center pt-5 pb-5 gap-2">
-            <li>
-              <button
-                className="p-2 bg-teal-500/60 rounded-md"
-                onClick={() =>
-                  timerStop === true ? setTimerStop(false) : setTimerStop(true)
-                }
-              >
-                {timerStop === true ? "再開" : "一時停止"}
-              </button>
-            </li>
-            <li>
-              {timerStop === true ? (
-                <button
-                  onClick={() => navigate("/gameresult", { state: gameInfo })}
-                  className="p-2 bg-teal-500/60 rounded-md"
-                >
-                  終了
-                </button>
-              ) : (
-                <span></span>
-              )}
-            </li>
-          </div>
-          {/*<button
-          className="p-2 bg-teal-500/60 rounded-md"
-          onClick={() => time > 0 && setTime((prev) => prev - prev)}
+      <div className="flex flex-col justify-center items-center border-solid border-2 border-gray-600 p-10 rounded-md shadow-lg">
+        <span className="text-6xl font-thin mb-5">{`${createTimer(time).minStr} : ${
+          createTimer(time).secStr
+        }`}</span>
+        <div className="flex gap-1 mb-5">
+          <button
+            className="px-6 py-3 bg-blue-500 rounded-xl"
+            onClick={() => time > 60 && setTime(time - 60)}
+          >
+            - 1:00
+          </button>
+          <button
+            className="px-6 py-3 bg-red-500 rounded-xl"
+            onClick={() => setTime(time + 60)}
+          >
+            + 1:00
+          </button>
+        </div>
+        <div className="flex mb-5">
+        <button
+          className={`px-4 py-3 rounded-xl ${
+            timerStop === true ? "mr-1 bg-green-500" : "w-[199px] bg-gray-300"
+          } `}
+          onClick={() =>
+            timerStop === true ? setTimerStop(false) : setTimerStop(true)
+          }
         >
-          結果を見る
+          {timerStop === true ? "スタート" : "一時停止"}
         </button>
-          */}
-        </ul>
+        {timerStop === true ? (
+          <button
+            onClick={() => navigate("/votewolf", { state: gameInfo })}
+            className="px-4 py-3 bg-gray-300 rounded-xl"
+          >
+            中断する
+          </button>
+        ) : (
+          <span></span>
+        )}
+        </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -32,7 +32,7 @@ export default function ThemeCheck() {
   useEffect(() => {
     (async () => {
       const r: GameInfo | null = await localforage.getItem("playerDetails");
-      if (r !== null) {
+      if (r != null) {
         setGameInfo(r);
       }
     })();
@@ -75,7 +75,7 @@ export default function ThemeCheck() {
               <div className="pt-10">
                 <button
                   onClick={() => flagHundler()}
-                  className="p-2 bg-teal-500/60 rounded-md"
+                  className="p-2 bg-green-500 rounded-md"
                 >
                   準備OK
                 </button>
@@ -98,7 +98,7 @@ export default function ThemeCheck() {
                   flagHundler();
                   addIndexNumber(playerIndex, gameInfo.player.length);
                 }}
-                className="p-2 bg-teal-500/60 rounded-md"
+                className="p-2 bg-green-500 rounded-md"
               >
                 覚えた
               </button>
@@ -108,7 +108,7 @@ export default function ThemeCheck() {
           return (
             <div className="pt-10 flex justify-center">
               <button
-                className="p-4 bg-teal-500/60 rounded-md"
+                className="p-4 bg-green-500 rounded-md"
                 onClick={() => navigate("/talktimer", { state: gameInfo })}
               >
                 トーク開始！

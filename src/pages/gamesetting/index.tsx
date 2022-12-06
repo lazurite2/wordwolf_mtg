@@ -72,7 +72,7 @@ export default function GameSetting() {
         setProperty({ ...property, civil: calcCivil });
     }, [property.wolves, property.player]);
 
-    useEffect(() => {
+    /*useEffect(() => {
         console.log("プレイヤー:", property.player);
         console.log("市民:", property.civil);
         console.log("人狼:", property.wolves);
@@ -80,7 +80,7 @@ export default function GameSetting() {
 
     useEffect(() => {
         console.log("timer:", property.timer);
-    }, [property.timer]);
+        }, [property.timer]);*/
 
     const watchDB = async () => {
         const pValue = await localforage.getItem(DB_GAMESETTING);
@@ -95,7 +95,7 @@ export default function GameSetting() {
 
     const handleSubmit = async () => {
         try {
-            localforage.clear();
+            localforage.removeItem(DB_GAMESETTING);
             await localforage.setItem(DB_GAMESETTING, property);
             //localforage.clear()
         } catch (err) {
@@ -108,59 +108,75 @@ export default function GameSetting() {
             <header className="text-center pt-32 pb-10">
                 <h1 className="font-bold select-none">{TITLE}</h1>
             </header>
-            <div className="">
-                <div className="flex flex-col justify-center items-center pb-5">
-                    <span className="text-xl pb-3 select-none">プレイヤー数</span>
-                    <div className="flex items-center pb-2">
-                        <MinusIcon
-                            className="h-10 w-10 text-white bg-blue-300 rounded-xl"
-                            onClick={() => calcPlayer(DEC)}
-                        />
-                        <span className="text-2xl px-5 select-none">{property.player}</span>
-                        <PlusIcon
-                            className="h-10 w-10 text-white bg-red-300 rounded-xl"
-                            onClick={() => calcPlayer(INC)}
-                        />
-                    </div>
+            <div className="flex flex-col justify-center items-center pb-5">
+                <span className="text-xl pb-3 select-none">プレイヤー数</span>
+                <div className="flex items-center pb-2">
+                    <button
+                        className="h-10 w-10 text-white bg-blue-500 rounded-xl"
+                        onClick={() => calcPlayer(DEC)}
+                    >
+                        <MinusIcon />
+                    </button>
+                    <span className="text-2xl px-5 select-none">
+                        {property.player}
+                    </span>
+                    <button
+                        className="h-10 w-10 text-white bg-red-500 rounded-xl"
+                        onClick={() => calcPlayer(INC)}
+                    >
+                        <PlusIcon />
+                    </button>
                 </div>
-                <div className="flex flex-col justify-center items-center pb-5">
-                    <span className="text-xl pb-3 select-none">人狼の数</span>
-                    <div className="flex items-center pb-2">
-                        <MinusIcon
-                            className="h-10 w-10 text-white bg-blue-300 rounded-xl"
-                            onClick={() => calcWolf(DEC)}
-                        />
-                        <span className="text-2xl px-5 select-none">{property.wolves}</span>
-                        <PlusIcon
-                            className="h-10 w-10 text-white bg-red-300 rounded-xl"
-                            onClick={() => calcWolf(INC)}
-                        />
-                    </div>
+            </div>
+            <div className="flex flex-col justify-center items-center pb-5">
+                <span className="text-xl pb-3 select-none">人狼の数</span>
+                <div className="flex items-center pb-2">
+                    <button
+                        className="h-10 w-10 text-white bg-blue-500 rounded-xl"
+                        onClick={() => calcWolf(DEC)}
+                    >
+                        <MinusIcon />
+                    </button>
+                    <span className="text-2xl px-5 select-none">
+                        {property.wolves}
+                    </span>
+                    <button
+                        className="h-10 w-10 text-white bg-red-500 rounded-xl"
+                        onClick={() => calcWolf(INC)}
+                    >
+                        <PlusIcon />
+                    </button>
                 </div>
-                <div className="flex flex-col justify-center items-center pb-5">
-                    <span className="text-xl pb-3 select-none">タイマー (分)</span>
-                    <div className="flex items-center pb-2">
-                        <MinusIcon
-                            className="h-10 w-10 text-white bg-blue-300 rounded-xl"
-                            onClick={() => calcTimer(DEC)}
-                        />
-                        <span className="text-2xl px-5 select-none">{property.timer}</span>
-                        <PlusIcon
-                            className="h-10 w-10 text-white bg-red-300 rounded-xl"
-                            onClick={() => calcTimer(INC)}
-                        />
-                    </div>
+            </div>
+            <div className="flex flex-col justify-center items-center pb-5">
+                <span className="text-xl pb-3 select-none">タイマー (分)</span>
+                <div className="flex items-center pb-2">
+                    <button
+                        className="h-10 w-10 text-white bg-blue-500 rounded-xl"
+                        onClick={() => calcTimer(DEC)}
+                    >
+                        <MinusIcon />
+                    </button>
+                    <span className="text-2xl px-5 select-none">
+                        {property.timer}
+                    </span>
+                    <button
+                        className="h-10 w-10 text-white bg-red-500 rounded-xl"
+                        onClick={() => calcTimer(INC)}
+                    >
+                        <PlusIcon />
+                    </button>
                 </div>
-                <div className="flex flex-col justify-center items-center pt-7">
-                    <Link to={"/playernamesetting"}>
-                        <button
-                            onClick={() => handleSubmit()}
-                            className="p-2 rounded-md bg-teal-500/60 select-none"
-                        >
-                            プレイヤー名設定へ
-                        </button>
-                    </Link>
-                </div>
+            </div>
+            <div className="flex flex-col justify-center items-center pt-7">
+                <Link to={"/playernamesetting"}>
+                    <button
+                        onClick={() => handleSubmit()}
+                        className="p-2 rounded-md bg-green-500 select-none"
+                    >
+                        プレイヤー名設定へ
+                    </button>
+                </Link>
             </div>
         </>
     );

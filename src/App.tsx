@@ -7,6 +7,7 @@ import PlayerNameSetting from "./pages/playerNameSetting";
 import ThemeCheck from "./pages/themecheck";
 import TalkTimer from "./pages/talktimer";
 import GameResult from "./pages/gameresult";
+import VoteWolf from "./pages/votewolf";
 
 export default function App() {
  return (
@@ -20,6 +21,7 @@ export default function App() {
                     <Route path="/themecheck" element={ <ThemeCheck /> } />
                     <Route path="/talktimer" element={ <TalkTimer /> } />
                     <Route path="/gameresult" element={ <GameResult /> } />
+                    <Route path="/votewolf" element={ <VoteWolf /> } />
                     <Route path="*" element={<NotFound/>} />
                 </Routes>
             </Layout>
