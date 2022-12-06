@@ -82,16 +82,16 @@ export default function GameSetting() {
         console.log("timer:", property.timer);
         }, [property.timer]);*/
 
-    const watchDB = async () => {
+    /*const watchDB = async () => {
         const pValue = await localforage.getItem(DB_GAMESETTING);
         if (pValue) {
             console.log(pValue);
         }
-    };
+        };*/
 
-    useEffect(() => {
+    /*useEffect(() => {
         watchDB();
-    }, []);
+        }, []);*/
 
     const handleSubmit = async () => {
         try {
