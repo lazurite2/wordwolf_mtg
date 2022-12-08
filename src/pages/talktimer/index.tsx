@@ -55,7 +55,7 @@ export default function TalkTimer() {
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <header className="pt-32 pb-10">
+      <header className="pb-10">
         <h1 className="font-bold">トーク</h1>
       </header>
       <div className="flex flex-col justify-center items-center border-solid border-2 border-gray-600 p-10 rounded-md shadow-lg">

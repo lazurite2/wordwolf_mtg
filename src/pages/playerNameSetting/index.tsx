@@ -1,5 +1,5 @@
 import localforage from "localforage";
-import React, { useState, useEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import { GameSettingHundler } from "../../../utils/main";
 import { useNavigate } from "react-router-dom";
 
@@ -46,7 +46,7 @@ export default function PlayerNameSetting() {
     */
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     getGameSettingDB();
   }, []);
 
@@ -105,7 +105,7 @@ export default function PlayerNameSetting() {
     const values = Object.values(inputValue);
     if (values.length < playerNumber) {
       return false;
-  } else if (values.includes("")) {
+    } else if (values.includes("")) {
       return false;
     } else {
       return true;
@@ -137,12 +137,12 @@ export default function PlayerNameSetting() {
 
   return (
     <>
-      <header className="text-center pt-20 pb-10">
+      <header className="text-center pb-10">
         <h1 className="font-bold">{TITLE}</h1>
       </header>
 
       <div className="flex flex-col justify-center items-center">
-        {createNameInputBox()}
+        {(() => createNameInputBox())() }
         {inputStatus.duplicate === false ? (
           <span className="border-2 rounded-md p-2 bg-red-500 mt-3 mb-3">
             同じ名前があるよ！
@@ -166,7 +166,7 @@ export default function PlayerNameSetting() {
         )}
         <button
           onClick={() => handleSubmit()}
-          className="mt-5 p-2 rounded-md bg-green-500"
+          className="mt-5 p-2 mt-10 rounded-md bg-green-500"
         >
           ゲーム開始！
         </button>

@@ -56,7 +56,7 @@ export default function ThemeCheck() {
 
   return (
     <>
-      <header className="text-center pt-32 pb-10">
+      <header className="text-center pb-10">
         <h1 className="font-bold">お題</h1>
       </header>
       {(() => {

@@ -1,7 +1,7 @@
 import { PlusIcon, MinusIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import * as localforage from "localforage";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 type InputSetting = {
     player: number;
@@ -27,6 +27,7 @@ export default function GameSetting() {
     const INC: string = "inc";
     const DEC: string = "dec";
     const TITLE: string = "ゲーム設定";
+    const navigate = useNavigate();
 
     const [property, setProperty] = useState<InputSetting>(initialSetting);
 
@@ -97,6 +98,7 @@ export default function GameSetting() {
         try {
             localforage.removeItem(DB_GAMESETTING);
             await localforage.setItem(DB_GAMESETTING, property);
+            navigate("/playernamesetting");
             //localforage.clear()
         } catch (err) {
             console.log(err);
@@ -105,7 +107,7 @@ export default function GameSetting() {
 
     return (
         <>
-            <header className="text-center pt-32 pb-10">
+            <header className="text-center pb-10">
                 <h1 className="font-bold select-none">{TITLE}</h1>
             </header>
             <div className="flex flex-col justify-center items-center pb-5">
@@ -169,14 +171,12 @@ export default function GameSetting() {
                 </div>
             </div>
             <div className="flex flex-col justify-center items-center pt-7">
-                <Link to={"/playernamesetting"}>
                     <button
-                        onClick={() => handleSubmit()}
+                        onClick={ async () => await handleSubmit() }
                         className="p-2 rounded-md bg-green-500 select-none"
                     >
                         プレイヤー名設定へ
                     </button>
-                </Link>
             </div>
         </>
     );

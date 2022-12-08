@@ -35,7 +35,7 @@ export default function GameResult() {
 
     return (
         <>
-            <header className="text-center pt-32 pb-10">
+            <header className="text-center pb-10">
                 <h1 className="font-bold">結果発表</h1>
             </header>
             <div className="text-center">
