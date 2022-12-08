@@ -1,5 +1,5 @@
 import localforage from "localforage";
-import React, { useState, useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect, useReducer } from "react";
 import { GameSettingHundler } from "../../../utils/main";
 import { useNavigate } from "react-router-dom";
 
@@ -60,9 +60,8 @@ export default function PlayerNameSetting() {
           type="text"
           key={i}
           name={`player${i + 1}`}
-          value={inputValue[Nplayer] === undefined ? "" : inputValue[Nplayer]}
+          value={inputValue[Nplayer] == undefined ? "" : inputValue[Nplayer]}
           className="border-solid border-2 border-gray-600 rounded-md my-3 p-2"
-          placeholder={`プレイヤー${i + 1}`}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             handleInputChange(e)
           }
@@ -140,9 +139,8 @@ export default function PlayerNameSetting() {
       <header className="text-center pb-10">
         <h1 className="font-bold">{TITLE}</h1>
       </header>
-
       <div className="flex flex-col justify-center items-center">
-        {(() => createNameInputBox())() }
+        { gameSetting != null && createNameInputBox()}
         {inputStatus.duplicate === false ? (
           <span className="border-2 rounded-md p-2 bg-red-500 mt-3 mb-3">
             同じ名前があるよ！
