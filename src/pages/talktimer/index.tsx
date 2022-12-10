@@ -79,7 +79,7 @@ export default function TalkTimer() {
         <div className="flex mb-5">
         <button
           className={`px-4 py-3 rounded-xl ${
-            timerStop === true ? "mr-1 bg-green-500" : "w-[199px] bg-gray-300"
+            timerStop === true ? "mr-1 bg-green-500" : "w-[188px] bg-gray-300"
           } `}
           onClick={() =>
             timerStop === true ? setTimerStop(false) : setTimerStop(true)

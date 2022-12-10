@@ -51,12 +51,12 @@ export default function GameResult() {
                 </ul>
                 <div className="flex flex-col items-center gap-5">
                     <button
-                        className="p-2 rounded-md bg-blue-500"
+                        className="p-3 rounded-md bg-blue-500"
                         onClick={() => continueGame()}
                     >
                         もう一度
                     </button>
-                    <button className="p-2 rounded-md bg-green-500" onClick={() => endGame()}>
+                    <button className="p-3 rounded-md bg-green-500" onClick={() => endGame()}>
                         終了する
                     </button>
                 </div>

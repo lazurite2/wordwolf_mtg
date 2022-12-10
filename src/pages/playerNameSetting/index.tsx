@@ -61,7 +61,7 @@ export default function PlayerNameSetting() {
           key={i}
           name={`player${i + 1}`}
           value={inputValue[Nplayer] == undefined ? "" : inputValue[Nplayer]}
-          className="border-solid border-2 border-gray-600 rounded-md my-3 p-2"
+          className="w-2/3 border-solid border-2 border-gray-600 rounded-md my-3 p-2"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             handleInputChange(e)
           }
@@ -164,7 +164,7 @@ export default function PlayerNameSetting() {
         )}
         <button
           onClick={() => handleSubmit()}
-          className="mt-5 p-2 mt-10 rounded-md bg-green-500"
+          className="mt-5 p-3 w-full mt-10 rounded-md bg-green-500"
         >
           ゲーム開始！
         </button>

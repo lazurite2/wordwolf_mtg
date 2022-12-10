@@ -114,16 +114,16 @@ export default function GameSetting() {
                 <span className="text-xl pb-3 select-none">プレイヤー数</span>
                 <div className="flex items-center pb-2">
                     <button
-                        className="h-10 w-10 text-white bg-blue-500 rounded-xl"
+                        className="h-12 w-12 text-white bg-blue-500 rounded-xl"
                         onClick={() => calcPlayer(DEC)}
                     >
                         <MinusIcon />
                     </button>
-                    <span className="text-2xl px-5 select-none">
+                    <span className="text-3xl px-5 select-none">
                         {property.player}
                     </span>
                     <button
-                        className="h-10 w-10 text-white bg-red-500 rounded-xl"
+                        className="h-12 w-12 text-white bg-red-500 rounded-xl"
                         onClick={() => calcPlayer(INC)}
                     >
                         <PlusIcon />
@@ -134,16 +134,16 @@ export default function GameSetting() {
                 <span className="text-xl pb-3 select-none">人狼の数</span>
                 <div className="flex items-center pb-2">
                     <button
-                        className="h-10 w-10 text-white bg-blue-500 rounded-xl"
+                        className="h-12 w-12 text-white bg-blue-500 rounded-xl"
                         onClick={() => calcWolf(DEC)}
                     >
                         <MinusIcon />
                     </button>
-                    <span className="text-2xl px-5 select-none">
+                    <span className="text-3xl px-5 select-none">
                         {property.wolves}
                     </span>
                     <button
-                        className="h-10 w-10 text-white bg-red-500 rounded-xl"
+                        className="h-12 w-12 text-white bg-red-500 rounded-xl"
                         onClick={() => calcWolf(INC)}
                     >
                         <PlusIcon />
@@ -154,16 +154,16 @@ export default function GameSetting() {
                 <span className="text-xl pb-3 select-none">タイマー (分)</span>
                 <div className="flex items-center pb-2">
                     <button
-                        className="h-10 w-10 text-white bg-blue-500 rounded-xl"
+                        className="h-12 w-12 text-white bg-blue-500 rounded-xl"
                         onClick={() => calcTimer(DEC)}
                     >
                         <MinusIcon />
                     </button>
-                    <span className="text-2xl px-5 select-none">
+                    <span className="text-3xl px-5 select-none">
                         {property.timer}
                     </span>
                     <button
-                        className="h-10 w-10 text-white bg-red-500 rounded-xl"
+                        className="h-12 w-12 text-white bg-red-500 rounded-xl"
                         onClick={() => calcTimer(INC)}
                     >
                         <PlusIcon />
@@ -173,7 +173,7 @@ export default function GameSetting() {
             <div className="flex flex-col justify-center items-center pt-7">
                     <button
                         onClick={ async () => await handleSubmit() }
-                        className="p-2 rounded-md bg-green-500 select-none"
+                        className="p-3 w-full rounded-md bg-green-500 select-none"
                     >
                         プレイヤー名設定へ
                     </button>

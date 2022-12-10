@@ -75,7 +75,7 @@ export default function ThemeCheck() {
               <div className="pt-10">
                 <button
                   onClick={() => flagHundler()}
-                  className="p-2 bg-green-500 rounded-md"
+                  className="p-3 bg-green-500 rounded-md"
                 >
                   準備OK
                 </button>
@@ -98,9 +98,9 @@ export default function ThemeCheck() {
                   flagHundler();
                   addIndexNumber(playerIndex, gameInfo.player.length);
                 }}
-                className="p-2 bg-green-500 rounded-md"
+                className="p-3 bg-green-500 rounded-md"
               >
-                覚えた
+                覚えた！
               </button>
             </div>
           );

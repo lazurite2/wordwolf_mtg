@@ -4,7 +4,7 @@ export default function NotFound() {
     const notfoundtitle:string = "404";
     return (
         <>
-            <header className="text-center pt-32 pb-32">
+            <header className="text-center pb-10">
                 <h1 className="font-bold">{notfoundtitle}</h1>
             </header>
             <div className="flex justify-center items-center gap-2">

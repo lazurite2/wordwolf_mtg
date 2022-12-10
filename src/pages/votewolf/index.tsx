@@ -25,7 +25,7 @@ export default function VoteWolf() {
             <div className="flex flex-col justify-center items-center">
                 <span className="text-2xl pb-10">誰が人狼か議論してください</span>
                 <button
-                    className="p-2 rounded-md bg-green-500"
+                    className="p-3 rounded-md bg-green-500"
                     onClick={() => navigate("/gameresult", { state: gameInfo })}
                 >
                     結果を確認
