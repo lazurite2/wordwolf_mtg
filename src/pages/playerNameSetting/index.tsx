@@ -1,7 +1,7 @@
 import localforage from "localforage";
 import React, { useState, useLayoutEffect, useReducer } from "react";
 import { GameSettingHundler } from "../../../utils/main";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 type GameSetting = {
   player: number;
@@ -22,12 +22,13 @@ type ValidateStatus = {
 
 export default function PlayerNameSetting() {
   const navigate = useNavigate();
+  const location = useLocation();
   const initialInput = {};
   const TITLE: string = "プレイヤー名設定";
   const DB_GAMESETTING: string = "gameSetting";
   const DB_PLAYERLIST = "playerNameList";
   const [gameSetting, setGameSetting] = useState<GameSetting>();
-  const [playerNumber, setPlayerNumber] = useState(0);
+  const [playerNumber, setPlayerNumber] = useState<number>(location.state);
   const [inputValue, setInputValue] = useState<InputPlayerName>({});
   const [inputStatus, setInputStatus] = useState<ValidateStatus>({
     duplicate: true,
@@ -39,7 +40,7 @@ export default function PlayerNameSetting() {
     const data: GameSetting | null = await localforage.getItem(DB_GAMESETTING);
     if (data == null) return;
     setGameSetting(data);
-    setPlayerNumber(data.player);
+    //setPlayerNumber(data.player);
     /*console.log("データをゲットしたなり");
     console.log("オブジェクトなり:", data);
     console.log(`プレイヤー数は${data.player}人なり`);
@@ -48,6 +49,7 @@ export default function PlayerNameSetting() {
 
   useLayoutEffect(() => {
     getGameSettingDB();
+    //console.log(location.state);
   }, []);
 
   const createNameInputBox = () => {

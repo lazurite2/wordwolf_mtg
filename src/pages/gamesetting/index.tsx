@@ -98,7 +98,7 @@ export default function GameSetting() {
         try {
             localforage.removeItem(DB_GAMESETTING);
             await localforage.setItem(DB_GAMESETTING, property);
-            navigate("/playernamesetting");
+            navigate("/playernamesetting", { state: property.player });
             //localforage.clear()
         } catch (err) {
             console.log(err);
