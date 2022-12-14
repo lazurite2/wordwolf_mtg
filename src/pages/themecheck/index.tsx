@@ -87,11 +87,9 @@ export default function ThemeCheck() {
             <div className="flex flex-col items-center">
               <span className="text-2xl pb-5">あなたのお題は</span>
               <div className="flex pb-10">
-                <span className="text-2xl">「</span>
                 <span className="text-2xl font-bold">
-                  {gameInfo.player[playerIndex].theme}
+                  {`「${gameInfo.player[playerIndex].theme}」`}
                 </span>
-                <span className="text-2xl">」です</span>
               </div>
               <button
                 onClick={() => {
