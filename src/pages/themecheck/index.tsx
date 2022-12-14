@@ -1,5 +1,5 @@
 import localforage from "localforage";
-import { useState, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 type PlayerDetails = {
@@ -29,7 +29,7 @@ export default function ThemeCheck() {
     setGameInfo(r); 
   }*/
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     (async () => {
       const r: GameInfo | null = await localforage.getItem("playerDetails");
       if (r != null) {

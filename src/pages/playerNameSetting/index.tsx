@@ -1,5 +1,5 @@
 import localforage from "localforage";
-import React, { useState, useLayoutEffect, useReducer } from "react";
+import React, { useState, useLayoutEffect, useEffect } from "react";
 import { GameSettingHundler } from "../../../utils/main";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -29,6 +29,8 @@ export default function PlayerNameSetting() {
   const DB_PLAYERLIST = "playerNameList";
   const [gameSetting, setGameSetting] = useState<GameSetting>();
   const [playerNumber, setPlayerNumber] = useState<number>(location.state);
+  const [inputArray, setInputArray] = useState<number[]>([]);
+  const [isRendered, setIsRendered] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<InputPlayerName>({});
   const [inputStatus, setInputStatus] = useState<ValidateStatus>({
     duplicate: true,
@@ -48,30 +50,18 @@ export default function PlayerNameSetting() {
   };
 
   useLayoutEffect(() => {
-    getGameSettingDB();
+    //getGameSettingDB();
     //console.log(location.state);
+    let numList: number[] = [];
+    for (let i: number = 0; i < playerNumber; i++) {
+      numList.push(numList[i]);
+    }
+    setInputArray(numList);
   }, []);
 
-  const createNameInputBox = () => {
-    let box = [];
-    let Nplayer: string = "";
-    for (let i: number = 0; i < playerNumber; i++) {
-      Nplayer = "player" + (i + 1);
-      box.push(
-        <input
-          type="text"
-          key={i}
-          name={`player${i + 1}`}
-          value={inputValue[Nplayer] == undefined ? "" : inputValue[Nplayer]}
-          className="w-2/3 border-solid border-2 border-gray-600 rounded-md my-3 p-2"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            handleInputChange(e)
-          }
-        />
-      );
-    }
-    return box;
-  };
+  useEffect(() => {
+    getGameSettingDB();
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target;
@@ -142,7 +132,24 @@ export default function PlayerNameSetting() {
         <h1 className="font-bold">{TITLE}</h1>
       </header>
       <div className="flex flex-col justify-center items-center">
-        { gameSetting != null && createNameInputBox()}
+        {/*(() => location.state > 0 && createNameInputBox())()*/}
+        {inputArray.map((num, index) => {
+          //console.log(index);
+          return (
+            <input
+              type="text"
+              key={index}
+              name={`player${index + 1}`}
+              value={
+                inputValue[`player${index + 1}`] == undefined ? "" : inputValue[`player${index + 1}`]
+              }
+              className="w-2/3 border-solid border-2 border-gray-600 rounded-md my-3 p-2"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleInputChange(e)
+              }
+            />
+          );
+        })}
         {inputStatus.duplicate === false ? (
           <span className="border-2 rounded-md p-2 bg-red-500 mt-3 mb-3">
             同じ名前があるよ！
