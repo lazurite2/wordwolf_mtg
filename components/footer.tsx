@@ -6,7 +6,7 @@ export default function Footer() {
             <div className="flex gap-3 justify-center items-center">
                 <div className="flex items-center gap-1">
                 <span>作者</span>
-                    <a href="https://github.com/lazurite2/wordwolf_mtg">
+                    <a href="https://github.com/lazurite2">
                         <img src={GitHubImage}  alt="github" width="30" height="30" />
                 </a>
                 </div>
