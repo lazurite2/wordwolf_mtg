@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Footer from "../../components/footer";
 
 export default function Home() {
     const start_button: string = "はじめる";
@@ -13,11 +14,14 @@ export default function Home() {
             <div className="flex flex-col justify-center items-center gap-10">
                 <Link
                     to="/gamesetting"
-                    className="p-3 w-2/3  lg:w-1/3 bg-green-500 rounded-md text-center"
+                    className="p-3 w-2/3 lg:w-2/3 bg-green-500 rounded-md text-center"
                 >
                     {start_button}
                 </Link>
             </div>
+            <footer className="text-center pt-10">
+                <Footer />
+            </footer>
         </>
     );
 }
