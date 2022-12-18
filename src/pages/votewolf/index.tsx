@@ -22,8 +22,8 @@ export default function VoteWolf() {
             <header className="text-center pb-10">
                 <h1 className="text-white font-bold">人狼をあてろ！</h1>
             </header>
-            <div className="flex flex-col justify-center items-center p-2">
-                <span className="text-2xl text-white pb-10">人狼だと思う人に、せーので投票をしてください</span>
+            <div className="flex flex-col items-center justify-center text-center">
+                <p className="text-2xl text-white pb-10">人狼だと思う人に、せーので投票をしてください</p>
                 <button
                     className="p-3 text-white rounded-lg border-2 border-solid border-blue-700"
                     onClick={() => navigate("/gameresult", { state: gameInfo })}
