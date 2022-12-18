@@ -8,6 +8,7 @@ import ThemeCheck from "./pages/themecheck";
 import TalkTimer from "./pages/talktimer";
 import GameResult from "./pages/gameresult";
 import VoteWolf from "./pages/votewolf";
+import Tutorial from "./pages/tutorial";
 
 export default function App() {
  return (
@@ -22,6 +23,7 @@ export default function App() {
                     <Route path="/talktimer" element={ <TalkTimer /> } />
                     <Route path="/gameresult" element={ <GameResult /> } />
                     <Route path="/votewolf" element={ <VoteWolf /> } />
+                    <Route path="/tutorial" element={ <Tutorial /> } />
                     <Route path="*" element={<NotFound/>} />
                 </Routes>
             </Layout>

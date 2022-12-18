@@ -9,14 +9,20 @@ export default function Home() {
     return (
         <>
             <header className="text-center pb-10">
-                <h1 className="font-bold">{gametitle}</h1>
+                <h1 className="text-white font-bold">{gametitle}</h1>
             </header>
             <div className="flex flex-col justify-center items-center gap-10">
                 <Link
                     to="/gamesetting"
-                    className="p-3 w-2/3 lg:w-2/3 bg-green-500 rounded-md text-center"
+                    className="p-3 w-3/4 lg:w-full text-white border-2 border-solid border-blue-700 rounded-md text-center"
                 >
                     {start_button}
+                </Link>
+                <Link
+                    to="/tutorial"
+                    className="p-3 w-3/4 lg:w-full text-white border-2 border-solid border-blue-700 rounded-md text-center"
+                >
+                    {tutorial_button}
                 </Link>
             </div>
             <footer className="text-center pt-10">

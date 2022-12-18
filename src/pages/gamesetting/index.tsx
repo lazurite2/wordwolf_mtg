@@ -1,4 +1,4 @@
-import { PlusIcon, MinusIcon } from "@heroicons/react/24/outline";
+import { PlusIcon, MinusIcon, ChevronLeftIcon,ChevronRightIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import * as localforage from "localforage";
 import { Link, useNavigate } from "react-router-dom";
@@ -108,72 +108,72 @@ export default function GameSetting() {
     return (
         <>
             <header className="text-center pb-10">
-                <h1 className="font-bold select-none">{TITLE}</h1>
+                <h1 className="font-bold select-none text-white">{TITLE}</h1>
             </header>
             <div className="flex flex-col justify-center items-center pb-5">
-                <span className="text-xl pb-3 select-none">プレイヤー数</span>
+                <span className="text-xl text-white pb-3 select-none">プレイヤー数</span>
                 <div className="flex items-center pb-2">
                     <button
-                        className="h-12 w-12 text-white bg-blue-500 rounded-xl"
+                        className="h-12 w-12 text-blue-600"
                         onClick={() => calcPlayer(DEC)}
                     >
-                        <MinusIcon />
+                        <ChevronLeftIcon />
                     </button>
-                    <span className="text-3xl px-5 select-none">
+                    <span className="text-3xl text-white px-5 select-none">
                         {property.player}
                     </span>
                     <button
-                        className="h-12 w-12 text-white bg-red-500 rounded-xl"
+                        className="h-12 w-12 text-red-600"
                         onClick={() => calcPlayer(INC)}
                     >
-                        <PlusIcon />
+                        <ChevronRightIcon />
                     </button>
                 </div>
             </div>
             <div className="flex flex-col justify-center items-center pb-5">
-                <span className="text-xl pb-3 select-none">人狼の数</span>
+                <span className="text-xl text-white pb-3 select-none">人狼の数</span>
                 <div className="flex items-center pb-2">
                     <button
-                        className="h-12 w-12 text-white bg-blue-500 rounded-xl"
+                        className="h-12 w-12 text-blue-600"
                         onClick={() => calcWolf(DEC)}
                     >
-                        <MinusIcon />
+                        <ChevronLeftIcon />
                     </button>
-                    <span className="text-3xl px-5 select-none">
+                    <span className="text-3xl text-white px-5 select-none">
                         {property.wolves}
                     </span>
                     <button
-                        className="h-12 w-12 text-white bg-red-500 rounded-xl"
+                        className="h-12 w-12 text-red-600"
                         onClick={() => calcWolf(INC)}
                     >
-                        <PlusIcon />
+                        <ChevronRightIcon />
                     </button>
                 </div>
             </div>
             <div className="flex flex-col justify-center items-center pb-5">
-                <span className="text-xl pb-3 select-none">タイマー (分)</span>
+                <span className="text-xl text-white pb-3 select-none">タイマー (分)</span>
                 <div className="flex items-center pb-2">
                     <button
-                        className="h-12 w-12 text-white bg-blue-500 rounded-xl"
+                        className="h-12 w-12 text-blue-600"
                         onClick={() => calcTimer(DEC)}
                     >
-                        <MinusIcon />
+                        <ChevronLeftIcon />
                     </button>
-                    <span className="text-3xl px-5 select-none">
+                    <span className="text-3xl text-white px-5 select-none">
                         {property.timer}
                     </span>
                     <button
-                        className="h-12 w-12 text-white bg-red-500 rounded-xl"
+                        className="h-12 w-12 text-red-600"
                         onClick={() => calcTimer(INC)}
                     >
-                        <PlusIcon />
+                        <ChevronRightIcon />
                     </button>
                 </div>
             </div>
             <div className="flex flex-col justify-center items-center pt-7">
                     <button
                         onClick={ async () => await handleSubmit() }
-                        className="p-3 w-full rounded-md bg-green-500 select-none"
+                        className="p-3 w-full border-2 border-solid border-blue-700 rounded-md select-none text-white"
                     >
                         プレイヤー名設定へ
                     </button>

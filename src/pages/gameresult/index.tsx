@@ -36,27 +36,27 @@ export default function GameResult() {
     return (
         <>
             <header className="text-center pb-10">
-                <h1 className="font-bold">結果発表</h1>
+                <h1 className="text-white font-bold">結果発表</h1>
             </header>
             <div className="text-center">
-                <span className="text-3xl">人狼は以下の方でした</span>
+                <span className="text-white text-3xl">人狼は以下の方でした</span>
                 <ul className="list-none pt-10 pb-10">
                     {gameInfo.player
                         .filter((p) => p.role === "wolf")
                         .map((p) => (
-                            <li key={p.name} className="text-2xl text-red-500">
+                            <li key={p.name} className="text-2xl text-red-600">
                                 {`${p.name} : ${p.theme}`}
                             </li>
                         ))}
                 </ul>
                 <div className="flex flex-col items-center gap-5">
                     <button
-                        className="p-3 rounded-md bg-blue-500"
+                        className="p-3 w-3/4 rounded-lg border-2 border-solid border-green-700 text-white"
                         onClick={() => continueGame()}
                     >
                         もう一度
                     </button>
-                    <button className="p-3 rounded-md bg-green-500" onClick={() => endGame()}>
+                    <button className="p-3 w-3/4 rounded-lg border-2 border-solid border-blue-700 text-white" onClick={() => endGame()}>
                         終了する
                     </button>
                 </div>

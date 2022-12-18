@@ -129,7 +129,7 @@ export default function PlayerNameSetting() {
   return (
     <>
       <header className="text-center pb-10">
-        <h1 className="font-bold">{TITLE}</h1>
+        <h1 className="font-bold text-white">{TITLE}</h1>
       </header>
       <div className="flex flex-col justify-center items-center">
         {/*(() => location.state > 0 && createNameInputBox())()*/}
@@ -140,10 +140,12 @@ export default function PlayerNameSetting() {
               type="text"
               key={index}
               name={`player${index + 1}`}
+              placeholder={`player${index + 1}`}
               value={
                 inputValue[`player${index + 1}`] == undefined ? "" : inputValue[`player${index + 1}`]
               }
-              className="w-2/3 border-solid border-2 border-gray-600 rounded-md my-3 p-2"
+              autoComplete="off"
+              className="text-white text-sm sm:text-md w-3/4 outline-0 bg-gray-700 border border-gray-600 focus:ring-blue-500 focus:border-blue-500 rounded-lg my-3 p-2.5"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 handleInputChange(e)
               }
@@ -151,21 +153,21 @@ export default function PlayerNameSetting() {
           );
         })}
         {inputStatus.duplicate === false ? (
-          <span className="border-2 rounded-md p-2 bg-red-500 mt-3 mb-3">
-            同じ名前があるよ！
+          <span className="border-2 rounded-lg p-2 bg-red-500 mt-3 mb-3">
+            プレイヤー名が重複しています
           </span>
         ) : (
           <span></span>
         )}
         {inputStatus.countover === false ? (
-          <span className="border-2 rounded-md p-2 bg-red-500 mt-3 mb-3">
-            10文字以内でお願い！
+          <span className="border-2 rounded-lg p-2 bg-red-500 mt-3 mb-3">
+            プレイヤー名は10文字以内で入力してください
           </span>
         ) : (
           <span></span>
         )}
         {inputStatus.valueexist === false ? (
-          <span className="border-2 rounded-md p-2 bg-red-500 mt-3 mb-3">
+          <span className="border-2 rounded-lg p-2 bg-red-500 mt-3 mb-3">
             プレイヤー名は必須！
           </span>
         ) : (
@@ -173,7 +175,7 @@ export default function PlayerNameSetting() {
         )}
         <button
           onClick={() => handleSubmit()}
-          className="mt-5 p-3 w-full mt-10 rounded-md bg-green-500"
+          className="mt-5 p-3 w-full mt-10 rounded-lg text-white border-2 border-solid border-blue-700"
         >
           ゲーム開始！
         </button>

@@ -57,13 +57,12 @@ export default function ThemeCheck() {
   return (
     <>
       <header className="text-center pb-10">
-        <h1 className="font-bold">お題</h1>
+        <h1 className="text-white font-bold">お題</h1>
       </header>
       {(() => {
-        if (gameInfo == null) return;
-        if (readyFlag === false && playerIndex < gameInfo.player.length) {
+        if (gameInfo != null && readyFlag === false && playerIndex < gameInfo.player.length) {
           return (
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center text-white">
               <div className="flex gap-2 items-center">
                 <span className="text-2xl font-bold pb-10">
                   {gameInfo.player[playerIndex].name}
@@ -75,16 +74,16 @@ export default function ThemeCheck() {
               <div className="pt-10">
                 <button
                   onClick={() => flagHundler()}
-                  className="p-3 bg-green-500 rounded-md"
+                  className="p-3 border-2 border-solid border-blue-700 rounded-lg"
                 >
                   準備OK
                 </button>
               </div>
             </div>
           );
-        } else if (readyFlag === true && playerIndex < gameInfo.player.length) {
+        } else if (gameInfo != null && readyFlag === true && playerIndex < gameInfo.player.length) {
           return (
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center text-white">
               <span className="text-2xl pb-5">あなたのお題は</span>
               <div className="flex pb-10">
                 <span className="text-2xl font-bold">
@@ -96,17 +95,17 @@ export default function ThemeCheck() {
                   flagHundler();
                   addIndexNumber(playerIndex, gameInfo.player.length);
                 }}
-                className="p-3 bg-green-500 rounded-md"
+                className="p-3 border-2 border-solid border-blue-700 rounded-lg"
               >
                 覚えた！
               </button>
             </div>
           );
-        } else if (playerIndex === gameInfo.player.length) {
+        } else if (gameInfo != null && playerIndex === gameInfo.player.length) {
           return (
-            <div className="pt-10 flex justify-center">
+            <div className="pt-10 flex justify-center text-white">
               <button
-                className="p-4 bg-green-500 rounded-md"
+                className="p-4 border-2 border-solid border-blue-700 rounded-lg"
                 onClick={() => navigate("/talktimer", { state: gameInfo })}
               >
                 トーク開始！

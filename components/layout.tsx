@@ -5,7 +5,7 @@ type Props = {
 }
 export default function Layout({children}: Props): React.ReactElement {
     return (
-        <div className="absolute inset-0 flex justify-center items-center bg-zinc-50">
+        <div className="bg-gray-900 min-h-screen flex justify-center items-center">
             <main>{children}</main>
         </div>
     );

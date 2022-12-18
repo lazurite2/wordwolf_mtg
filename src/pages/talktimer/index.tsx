@@ -56,21 +56,21 @@ export default function TalkTimer() {
   return (
     <div className="flex flex-col justify-center items-center">
       <header className="pb-10">
-        <h1 className="font-bold">トーク</h1>
+        <h1 className="text-white font-bold">トーク</h1>
       </header>
-      <div className="flex flex-col justify-center items-center border-solid border-2 border-gray-600 p-10 rounded-md shadow-lg">
-        <span className="text-6xl font-thin mb-5">{`${createTimer(time).minStr} : ${
+      <div className="flex flex-col justify-center items-center border-solid border-2 border-blue-600 p-10 rounded-lg">
+        <span className="text-6xl text-white font-thin mb-5">{`${createTimer(time).minStr} : ${
           createTimer(time).secStr
         }`}</span>
         <div className="flex gap-1 mb-5">
           <button
-            className="px-6 py-3 bg-blue-500 rounded-xl"
+            className="px-6 py-3 border-2 border-solid border-blue-600 text-white rounded-lg"
             onClick={() => time > 60 && setTime(time - 60)}
           >
             - 1:00
           </button>
           <button
-            className="px-6 py-3 bg-red-500 rounded-xl"
+            className="px-6 py-3 border-2 border-solid border-red-600 text-white rounded-lg"
             onClick={() => setTime(time + 60)}
           >
             + 1:00
@@ -78,8 +78,8 @@ export default function TalkTimer() {
         </div>
         <div className="flex mb-5">
         <button
-          className={`px-4 py-3 rounded-xl ${
-            timerStop === true ? "mr-1 bg-green-500" : "w-[188px] bg-gray-300"
+          className={`px-4 py-3 rounded-lg ${
+            timerStop === true ? "mr-1 border-2 border-solid border-green-700 text-white" : "w-[196px] text-white border-2 border-solid border-gray-500"
           } `}
           onClick={() =>
             timerStop === true ? setTimerStop(false) : setTimerStop(true)
@@ -90,7 +90,7 @@ export default function TalkTimer() {
         {timerStop === true ? (
           <button
             onClick={() => navigate("/votewolf", { state: gameInfo })}
-            className="px-4 py-3 bg-gray-300 rounded-xl"
+            className="px-4 py-3 text-white border-2 border-solid rounded-lg"
           >
             中断する
           </button>
