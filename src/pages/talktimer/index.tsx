@@ -76,21 +76,21 @@ export default function TalkTimer() {
             + 1:00
           </button>
         </div>
-        <div className="flex mb-5">
+        <div className="flex flex-col justify-center items-center mb-5 gap-2">
         <button
-          className={`px-4 py-3 rounded-lg ${
-            timerStop === true ? "mr-1 border-2 border-solid border-green-700 text-white" : "w-[196px] text-white border-2 border-solid border-gray-500"
+          className={`p-4 rounded-lg ${
+            timerStop === true ? "w-[196px] mr-1 border-2 border-solid border-green-700 text-white" : "w-[196px] text-white border-2 border-solid border-gray-500"
           } `}
           onClick={() =>
             timerStop === true ? setTimerStop(false) : setTimerStop(true)
           }
         >
-          {timerStop === true ? "スタート" : "一時停止"}
+          <span className="select-none">{timerStop === true ? "スタート" : "一時停止"}</span>
         </button>
         {timerStop === true ? (
           <button
             onClick={() => navigate("/votewolf", { state: gameInfo })}
-            className="px-4 py-3 text-white border-2 border-solid rounded-lg"
+            className="p-4 w-[196px] text-white border-2 border-solid rounded-lg"
           >
             中断する
           </button>
