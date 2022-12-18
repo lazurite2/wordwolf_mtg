@@ -43,7 +43,7 @@ export async function GameSettingHundler() {
   const playersNum: number = Object.values(playersNameList).length;
   const playersName: string[] = Object.values(playersNameList);
   const themeWords: string[] = setTheme(themeMaster);
-  console.log(themeWords);
+  //console.log(themeWords);
   const wolvesIndex: number[] = selectWolves(
     preSettingList.wolves,
     preSettingList.player

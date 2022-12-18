@@ -79,7 +79,7 @@ export default function TalkTimer() {
         <div className="flex flex-col justify-center items-center mb-5 gap-2">
         <button
           className={`p-4 rounded-lg ${
-            timerStop === true ? "w-[196px] mr-1 border-2 border-solid border-green-700 text-white" : "w-[196px] text-white border-2 border-solid border-gray-500"
+            timerStop === true ? "w-[196px] border-2 border-solid border-green-700 text-white" : "w-[196px] text-white border-2 border-solid border-gray-500"
           } `}
           onClick={() =>
             timerStop === true ? setTimerStop(false) : setTimerStop(true)
