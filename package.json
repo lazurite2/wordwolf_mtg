@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "cham(lazurite2)",
+  "license": "MIT",
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.8",
     "@types/react": "^18.0.21",
