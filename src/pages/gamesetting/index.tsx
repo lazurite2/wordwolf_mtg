@@ -1,4 +1,9 @@
-import { PlusIcon, MinusIcon, ChevronLeftIcon,ChevronRightIcon } from "@heroicons/react/24/outline";
+import {
+    PlusIcon,
+    MinusIcon,
+    ChevronLeftIcon,
+    ChevronRightIcon,
+} from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import * as localforage from "localforage";
 import { Link, useNavigate } from "react-router-dom";
@@ -45,7 +50,7 @@ export default function GameSetting() {
 
     const calcWolf = (value: string) => {
         if (value === INC) {
-            if (property.wolves !== MAXWOLF) {
+            if (property.wolves !== MAXWOLF && property.player > 3) {
                 setProperty((prev) => ({ ...prev, wolves: prev.wolves + 1 }));
             }
         } else if (value === DEC) {
@@ -71,6 +76,9 @@ export default function GameSetting() {
     useEffect(() => {
         const calcCivil: number = property.player - property.wolves;
         setProperty({ ...property, civil: calcCivil });
+        if (property.player === 3 && property.wolves === 2) {
+            setProperty((prev) => ({ ...prev, wolves: prev.wolves - 1 }));
+        }
     }, [property.wolves, property.player]);
 
     /*useEffect(() => {
@@ -111,7 +119,9 @@ export default function GameSetting() {
                 <h1 className="font-bold select-none text-white">{TITLE}</h1>
             </header>
             <div className="flex flex-col justify-center items-center pb-5">
-                <span className="text-xl text-white pb-3 select-none">プレイヤー数</span>
+                <span className="text-xl text-white pb-3 select-none">
+                    プレイヤー数
+                </span>
                 <div className="flex items-center pb-2">
                     <button
                         className="h-12 w-12 text-blue-600"
@@ -131,7 +141,9 @@ export default function GameSetting() {
                 </div>
             </div>
             <div className="flex flex-col justify-center items-center pb-5">
-                <span className="text-xl text-white pb-3 select-none">人狼の数</span>
+                <span className="text-xl text-white pb-3 select-none">
+                    人狼の数
+                </span>
                 <div className="flex items-center pb-2">
                     <button
                         className="h-12 w-12 text-blue-600"
@@ -151,7 +163,9 @@ export default function GameSetting() {
                 </div>
             </div>
             <div className="flex flex-col justify-center items-center pb-5">
-                <span className="text-xl text-white pb-3 select-none">タイマー (分)</span>
+                <span className="text-xl text-white pb-3 select-none">
+                    タイマー (分)
+                </span>
                 <div className="flex items-center pb-2">
                     <button
                         className="h-12 w-12 text-blue-600"
@@ -171,12 +185,12 @@ export default function GameSetting() {
                 </div>
             </div>
             <div className="flex flex-col justify-center items-center pt-7">
-                    <button
-                        onClick={ async () => await handleSubmit() }
-                        className="p-3 w-full border-2 border-solid border-blue-700 rounded-md select-none text-white"
-                    >
-                        プレイヤー名設定へ
-                    </button>
+                <button
+                    onClick={async () => await handleSubmit()}
+                    className="p-3 w-full border-2 border-solid border-blue-700 rounded-md select-none text-white"
+                >
+                    プレイヤー名設定へ
+                </button>
             </div>
         </>
     );
