@@ -4,12 +4,12 @@ import Footer from "../../components/footer";
 export default function Home() {
     const start_button: string = "はじめる";
     const tutorial_button: string = "遊び方";
-    const gametitle: string = "ワードウルフ × MTG";
+    const gametitle: string = "MTGワードウルフ";
 
     return (
         <>
-            <header className="text-center pb-10">
-                <h1 className="text-white font-bold">{gametitle}</h1>
+            <header className="flex flex-col justify-center items-center pb-10">
+                <h1 className="text-white font-light">{gametitle}</h1>
             </header>
             <div className="flex flex-col justify-center items-center gap-10">
                 <Link

@@ -140,7 +140,7 @@ export default function PlayerNameSetting() {
               type="text"
               key={index}
               name={`player${index + 1}`}
-              placeholder={`player${index + 1}`}
+              placeholder={`プレイヤー${index + 1}`}
               value={
                 inputValue[`player${index + 1}`] == undefined ? "" : inputValue[`player${index + 1}`]
               }
